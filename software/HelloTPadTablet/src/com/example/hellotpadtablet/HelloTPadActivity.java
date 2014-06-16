@@ -2,9 +2,7 @@ package com.example.hellotpadtablet;
 
 import nxr.tpadioio.lib.TPadIOIOActivity;
 import android.os.Bundle;
-import android.app.Activity;
 import android.graphics.Color;
-import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 
