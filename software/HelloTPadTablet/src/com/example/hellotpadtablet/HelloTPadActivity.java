@@ -1,12 +1,12 @@
 package com.example.hellotpadtablet;
 
-import nxr.tpadioio.lib.TPadIOIOActivity;
+import nxr.tpadnexus.lib.TPadNexusActivity;
 import android.os.Bundle;
 import android.graphics.Color;
 import android.view.MotionEvent;
 import android.view.View;
 
-public class HelloTPadActivity extends TPadIOIOActivity {
+public class HelloTPadActivity extends TPadNexusActivity {
 
 	// First we must create a 'View' class we will be interacting with
 	View helloView;

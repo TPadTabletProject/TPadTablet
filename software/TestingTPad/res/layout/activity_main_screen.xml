@@ -1,0 +1,172 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MainScreen" >
+
+    <TextView
+        android:id="@+id/freqText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Frequency"/>
+
+    <SeekBar
+        android:id="@+id/freqBar"
+        android:layout_width="500dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/freqText"
+        android:layout_below="@+id/freqText"
+        android:max="500" />
+
+    <EditText
+        android:id="@+id/freqEdit"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/freqBar"
+        android:layout_toRightOf="@+id/freqBar"
+        android:ems="10"
+        android:inputType="number"
+        android:text="0" >
+    </EditText>
+
+    <TextView
+        android:id="@+id/ampText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/freqBar"
+        android:layout_below="@+id/freqBar"
+        android:layout_marginTop="60dp"
+        android:text="Amplitude" />
+
+    <SeekBar
+        android:id="@+id/ampBar"
+        android:layout_width="500dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ampText"
+        android:layout_alignRight="@+id/freqBar"
+        android:layout_below="@+id/ampText"
+        android:max="100"/>
+
+    <EditText
+        android:id="@+id/ampEdit"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/ampBar"
+        android:layout_alignLeft="@+id/freqEdit"
+        android:layout_alignRight="@+id/freqEdit"
+        android:inputType="number"
+        android:ems="10"
+        android:text="0" />
+
+    <Spinner
+        android:id="@+id/wavetype"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ampBar"
+        android:layout_below="@+id/ampBar"
+        android:layout_marginTop="60dp" />   
+    
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/start"
+        android:layout_centerHorizontal="true"
+        android:text="Off" />
+    
+     <TextView
+        android:id="@+id/freqText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/wavetype"
+        android:text="Frequency 2"/>
+
+    <SeekBar
+        android:id="@+id/freqBar2"
+        android:layout_width="500dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/freqText2"
+        android:layout_below="@+id/freqText2"
+        android:max="500" />
+
+    <EditText
+        android:id="@+id/freqEdit2"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/freqBar2"
+        android:layout_toRightOf="@+id/freqBar2"
+        android:inputType="number"
+        android:ems="10"
+        android:text="0" >
+    </EditText>
+
+    <TextView
+        android:id="@+id/ampText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/freqBar2"
+        android:layout_below="@+id/freqBar2"
+        android:layout_marginTop="60dp"
+        android:text="Amplitude2" />
+
+    <SeekBar
+        android:id="@+id/ampBar2"
+        android:layout_width="500dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ampText2"
+        android:layout_alignRight="@+id/freqBar2"
+        android:layout_below="@+id/ampText2"
+        android:max="100"/>
+
+    <EditText
+        android:id="@+id/ampEdit2"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/ampBar2"
+        android:layout_alignLeft="@+id/freqEdit2"
+        android:layout_alignRight="@+id/freqEdit2"
+        android:inputType="number"
+        android:ems="10"
+        android:text="0" />
+
+    <Spinner
+        android:id="@+id/wavetype2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ampBar2"
+        android:layout_below="@+id/ampBar2"
+        android:layout_marginTop="60dp" />
+    
+    <Button
+        android:id="@+id/start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/wavetype2"
+        android:layout_marginLeft="60dp"
+        android:layout_toRightOf="@+id/freqText"
+        android:text="Start" />
+    
+    <View 
+
+        android:id="@+id/area"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/wavetype2"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/black" />
+
+    <CheckBox
+        android:id="@+id/checkBox1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/freqText2"
+        android:layout_alignBottom="@+id/freqText2"
+        android:layout_alignLeft="@+id/start"
+        android:text="Using 2nd wave" />
+
+</RelativeLayout>
