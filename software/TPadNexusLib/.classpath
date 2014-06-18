@@ -6,5 +6,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="lib" path="C:/Users/Craig/Documents/GitHub/TPadTablet/software/TPadNexusLib/libs/android-support-v4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Craig/Documents/GitHub/TPadTablet/software/TPadNexusLib/libs/opencv library - 2.4.7.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

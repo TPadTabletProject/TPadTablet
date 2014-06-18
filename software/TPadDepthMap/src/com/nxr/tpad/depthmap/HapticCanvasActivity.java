@@ -25,84 +25,72 @@ public class HapticCanvasActivity extends TPadNexusTabActivity {
 	public static TabHost mTabHost;
 
 	public static HapticCanvasView myHapticView;
-	
-	String TAG = "HapticCanvasActivity";
 
+	String TAG = "HapticCanvasActivity";
 
 	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
-		
+
 		Log.i(TAG, "Trying to load OpenCV library");
-	    if (!OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_7, this, mOpenCVCallBack))
-	    {
-	      Log.e(TAG, "Cannot connect to OpenCV Manager");
-	    }
-		
-		
+		if (!OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_7, this, mOpenCVCallBack)) {
+			Log.e(TAG, "Cannot connect to OpenCV Manager");
+		}
+
 		// set the content view to our layout .xml
 		setContentView(R.layout.hapticcanvas);
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 		mTabHost = getTabHost();
 
 		TabSpec FileSpec = mTabHost.newTabSpec("File");
-		
+
 		FileSpec.setIndicator("Save/Load");
 		Intent fileIntent = new Intent(this, FileOptions.class);
 		FileSpec.setContent(fileIntent);
 		/*
-		TabSpec BrushSpec = mTabHost.newTabSpec("Brush");
-		BrushSpec.setIndicator("Brush Options");
-		Intent brushIntent = new Intent(this, BrushOptions.class);
-		BrushSpec.setContent(brushIntent);
-		
-		TabSpec EditSpec = mTabHost.newTabSpec("Edit");
-		EditSpec.setIndicator("Edit");
-		Intent editIntent = new Intent(this, EditScreen.class);
-		EditSpec.setContent(editIntent);
-		*/
+		 * TabSpec BrushSpec = mTabHost.newTabSpec("Brush"); BrushSpec.setIndicator("Brush Options"); Intent brushIntent = new Intent(this, BrushOptions.class); BrushSpec.setContent(brushIntent);
+		 * 
+		 * TabSpec EditSpec = mTabHost.newTabSpec("Edit"); EditSpec.setIndicator("Edit"); Intent editIntent = new Intent(this, EditScreen.class); EditSpec.setContent(editIntent);
+		 */
 		TabSpec FeelSpec = mTabHost.newTabSpec("Feel");
 		FeelSpec.setIndicator("Feel");
 		Intent feelIntent = new Intent(this, FeelScreen.class);
 		FeelSpec.setContent(feelIntent);
-		
+
 		mTabHost.addTab(FileSpec);
-		//mTabHost.addTab(BrushSpec);
-		//mTabHost.addTab(EditSpec);
+		// mTabHost.addTab(BrushSpec);
+		// mTabHost.addTab(EditSpec);
 		mTabHost.addTab(FeelSpec);
-				
-		
+
 		// initialize screenview class object
 		myHapticView = (HapticCanvasView) findViewById(R.id.hapticCanvasView);
 		myHapticView.setContext(this);
 		setFreq(33650);
 		// Start communication with TPad
-		
-		
 
 	}
 
-	private BaseLoaderCallback  mOpenCVCallBack = new BaseLoaderCallback(this) {
-	    @Override
-	    public void onManagerConnected(int status) {
-	        switch (status) {
-	                case LoaderCallbackInterface.SUCCESS:
-	                {
-	                	Log.e("TEST", "Connected to OpenCV Manager");   
-	                	Bitmap initialBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.sample);
-	            		myHapticView.setDrawBitmap(initialBitmap);
-	            		myHapticView.setBackgroundBitmap(initialBitmap);
-	                } break;
-	                default:
-	                {
-	                    super.onManagerConnected(status);
-	                } break;
-	            }
-	    }
-	    };
-	
+	private BaseLoaderCallback mOpenCVCallBack = new BaseLoaderCallback(this) {
+		@Override
+		public void onManagerConnected(int status) {
+			switch (status) {
+			case LoaderCallbackInterface.SUCCESS: {
+				Log.e("TEST", "Connected to OpenCV Manager");
+				Bitmap initialBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.sample);
+				myHapticView.setDrawBitmap(initialBitmap);
+				myHapticView.setBackgroundBitmap(initialBitmap);
+			}
+				break;
+			default: {
+				super.onManagerConnected(status);
+			}
+				break;
+			}
+		}
+	};
+
 	// Following code modified from
 
 	@Override
@@ -117,7 +105,7 @@ public class HapticCanvasActivity extends TPadNexusTabActivity {
 
 	@Override
 	protected void onDestroy() {
-		
+
 		myHapticView.destroy();
 		super.onDestroy();
 	}

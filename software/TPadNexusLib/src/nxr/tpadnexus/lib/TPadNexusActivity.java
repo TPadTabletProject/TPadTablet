@@ -1,6 +1,11 @@
 package nxr.tpadnexus.lib;
 
 import java.nio.FloatBuffer;
+
+import org.opencv.android.BaseLoaderCallback;
+import org.opencv.android.LoaderCallbackInterface;
+import org.opencv.android.OpenCVLoader;
+
 import ioio.lib.api.DigitalOutput;
 import ioio.lib.api.IOIO;
 import ioio.lib.api.PwmOutput;
@@ -8,6 +13,8 @@ import ioio.lib.api.exception.ConnectionLostException;
 import ioio.lib.util.BaseIOIOLooper;
 import ioio.lib.util.IOIOLooper;
 import ioio.lib.util.android.IOIOActivity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -29,6 +36,8 @@ public abstract class TPadNexusActivity extends IOIOActivity {
 
 	private int TPadFreq = 10000;
 
+	private String TAG = new String("TPadNexusActivity");
+
 	class Looper extends BaseIOIOLooper {
 		private PwmOutput pwmOutput_;
 		private PwmOutput testPWM;
@@ -42,7 +51,7 @@ public abstract class TPadNexusActivity extends IOIOActivity {
 			freq = TPadFreq;
 			tpadValueBuffer.clear();
 			tpadTextureBuffer.clear();
-		
+
 		}
 
 		@Override
@@ -55,7 +64,7 @@ public abstract class TPadNexusActivity extends IOIOActivity {
 
 					led_.write(false);
 					TPadValue = tpadValueBuffer.get();
-					
+
 					pwmOutput_.setDutyCycle(voltageToPwm(TPadValue * MAX_VOLTAGE));
 					ioio_.endBatch();
 
@@ -314,8 +323,8 @@ public abstract class TPadNexusActivity extends IOIOActivity {
 		} else if (voltage > DEAD_VOLTAGE) {
 			duty = 1.9789f * voltage - 47.158f;
 		}
-		
-		duty = (duty / 256f) * .5f;				
+
+		duty = (duty / 256f) * .5f;
 		Log.i("TPad Duty", String.valueOf(duty));
 		return duty;
 	}

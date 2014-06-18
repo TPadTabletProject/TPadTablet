@@ -12,6 +12,21 @@
     <View
         android:id="@+id/view1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="200dp" />
+     <View
+        android:id="@+id/view2"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />    
+    
+    <nxr.tpadnexus.lib.views.FrictionMapView
+        android:id="@+id/view3"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
+    
+    <nxr.tpadnexus.lib.views.DepthMapView
+        android:id="@+id/view4"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
+    
 
 </LinearLayout>
