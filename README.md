@@ -6,3 +6,9 @@ by Northwestern NxR Lab
 
 ![(image link broken)](http://tpadtablet.org/wp-content/uploads/2013/04/130x180.jpg "title")
 
+Working Applications:
+
+
+Under Developement:
+TPad KeyPad - Haptic Keyboard for Android:
+
