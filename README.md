@@ -10,5 +10,5 @@ Working Applications:
 
 
 Under Developement:
-<br>-TPad KeyPad: Haptic Keyboard for Android:
+<br>-TPad KeyPad: Haptic Keyboard for Android
 
