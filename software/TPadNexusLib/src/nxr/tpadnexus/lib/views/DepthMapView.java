@@ -28,7 +28,7 @@ public class DepthMapView extends View {
 	private int height, width;
 
 	private TPadNexusActivity tpadActivity;
-	private Context mainContext;
+	private final Context mainContext;
 
 	private Paint dataPaint;
 	private float scaleFactor;
@@ -65,14 +65,14 @@ public class DepthMapView extends View {
 		scaleMat.postScale(1 / scaleFactor, 1 / scaleFactor);
 
 		Log.i(TAG, "Trying to load OpenCV library");
-		if (!OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_7, context, mOpenCVCallBack)) {
+		if (!OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_7, mainContext, mOpenCVCallBack)) {
 			Log.e(TAG, "Cannot connect to OpenCV Manager");
 		}
 		
 		
 	}
 	
-	private BaseLoaderCallback mOpenCVCallBack = new BaseLoaderCallback(mainContext) {
+	private BaseLoaderCallback mOpenCVCallBack = new BaseLoaderCallback(getContext()) {
 		@Override
 		public void onManagerConnected(int status) {
 			switch (status) {
