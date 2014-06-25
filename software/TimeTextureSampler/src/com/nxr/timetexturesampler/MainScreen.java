@@ -1,7 +1,5 @@
 package com.nxr.timetexturesampler;
 
-import com.nxr.timetexturesampler.R;
-
 import nxr.tpadnexus.lib.TPadNexusFragmentActivity;
 import nxr.tpadnexus.lib.TPadTexture;
 import android.os.Bundle;
@@ -36,7 +34,7 @@ public class MainScreen extends TPadNexusFragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setFreq(33300);
+		setFreq(34910);
 		setContentView(R.layout.activity_main_screen);
 		text = (TextView) findViewById(R.id.textView1);
 		Spinner spinner = (Spinner) findViewById(R.id.wavetype);

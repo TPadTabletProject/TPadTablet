@@ -2,10 +2,6 @@ package nxr.tpadnexus.lib;
 
 import java.nio.FloatBuffer;
 
-import org.opencv.android.BaseLoaderCallback;
-import org.opencv.android.LoaderCallbackInterface;
-import org.opencv.android.OpenCVLoader;
-
 import ioio.lib.api.DigitalOutput;
 import ioio.lib.api.IOIO;
 import ioio.lib.api.PwmOutput;
@@ -13,8 +9,6 @@ import ioio.lib.api.exception.ConnectionLostException;
 import ioio.lib.util.BaseIOIOLooper;
 import ioio.lib.util.IOIOLooper;
 import ioio.lib.util.android.IOIOActivity;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -36,11 +30,9 @@ public abstract class TPadNexusActivity extends IOIOActivity {
 
 	private int TPadFreq = 10000;
 
-	private String TAG = new String("TPadNexusActivity");
 
 	class Looper extends BaseIOIOLooper {
 		private PwmOutput pwmOutput_;
-		private PwmOutput testPWM;
 		private DigitalOutput led_;
 		private int freq;
 

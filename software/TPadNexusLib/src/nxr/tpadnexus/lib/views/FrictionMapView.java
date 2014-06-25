@@ -65,7 +65,7 @@ public class FrictionMapView extends View {
 
 	@Override
 	protected void onDraw(Canvas canvas) {
-		super.onDraw(canvas);				
+		super.onDraw(canvas);
 		canvas.drawColor(Color.MAGENTA);
 		canvas.drawBitmap(dataBitmap, scaleMat, dataPaint);
 

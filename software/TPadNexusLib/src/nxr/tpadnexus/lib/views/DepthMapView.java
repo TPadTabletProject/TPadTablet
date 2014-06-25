@@ -33,7 +33,7 @@ public class DepthMapView extends View {
 	private Paint dataPaint;
 	private float scaleFactor;
 	private Matrix scaleMat;
-	
+
 	private boolean openCvLoaded = false;
 
 	private static volatile Bitmap dataBitmap = null;
@@ -51,11 +51,12 @@ public class DepthMapView extends View {
 		super(context, attrs);
 
 		mainContext = context;
+
 		tpadActivity = (TPadNexusActivity) mainContext;
-		
+
 		Bitmap defaultBitmap = Bitmap.createBitmap(10, 10, Bitmap.Config.ARGB_8888);
 		setDataBitmap(defaultBitmap);
-		
+
 		dataPaint = new Paint();
 		dataPaint.setColor(Color.DKGRAY);
 		dataPaint.setAntiAlias(true);
@@ -68,10 +69,9 @@ public class DepthMapView extends View {
 		if (!OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_7, mainContext, mOpenCVCallBack)) {
 			Log.e(TAG, "Cannot connect to OpenCV Manager");
 		}
-		
-		
+
 	}
-	
+
 	private BaseLoaderCallback mOpenCVCallBack = new BaseLoaderCallback(getContext()) {
 		@Override
 		public void onManagerConnected(int status) {
@@ -96,9 +96,9 @@ public class DepthMapView extends View {
 		resetScaleFactor();
 		invalidate();
 	}
-	
-	private void computeGradients(){
-		
+
+	private void computeGradients() {
+
 		gradXBitmap = null;
 		gradYBitmap = null;
 
@@ -115,14 +115,14 @@ public class DepthMapView extends View {
 
 		// x direction gradient
 		Imgproc.Sobel(tempMat, gradMatx, tempMat.depth(), 1, 0, 5, .5, delta);
-		// Imgproc.GaussianBlur(gradMatx, gradMatx, new Size(7,7), 10);
-		Imgproc.GaussianBlur(gradMatx, gradMatx, new Size(11, 11), 20);
+		Imgproc.GaussianBlur(gradMatx, gradMatx, new Size(7, 7), 10);
+		// Imgproc.GaussianBlur(gradMatx, gradMatx, new Size(11, 11), 20);
 		Utils.matToBitmap(gradMatx, gradXBitmap);
 
 		// y direction gradient
 		Imgproc.Sobel(tempMat, gradMaty, tempMat.depth(), 0, 1, 5, .5, delta);
-		// Imgproc.GaussianBlur(gradMaty, gradMaty, new Size(7,7), 10);
-		Imgproc.GaussianBlur(gradMaty, gradMaty, new Size(11, 11), 20);
+		Imgproc.GaussianBlur(gradMaty, gradMaty, new Size(7, 7), 10);
+		// Imgproc.GaussianBlur(gradMaty, gradMaty, new Size(11, 11), 20);
 		Utils.matToBitmap(gradMaty, gradYBitmap);
 	}
 
@@ -152,10 +152,10 @@ public class DepthMapView extends View {
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 
-		if(openCvLoaded==false){
+		if (openCvLoaded == false) {
 			return false;
 		}
-		
+
 		switch (event.getActionMasked()) {
 
 		case MotionEvent.ACTION_DOWN:

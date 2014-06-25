@@ -3,9 +3,6 @@ package com.nxr.tpad.depthmap;
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;
-
-import com.nxr.tpad.depthmap.R;
-
 import nxr.tpadnexus.lib.TPadNexusTabActivity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -67,7 +64,7 @@ public class HapticCanvasActivity extends TPadNexusTabActivity {
 		// initialize screenview class object
 		myHapticView = (HapticCanvasView) findViewById(R.id.hapticCanvasView);
 		myHapticView.setContext(this);
-		setFreq(33650);
+		setFreq(34910);
 		// Start communication with TPad
 
 	}

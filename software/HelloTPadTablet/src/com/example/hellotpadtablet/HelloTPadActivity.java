@@ -27,7 +27,7 @@ public class HelloTPadActivity extends TPadNexusActivity {
 		setContentView(R.layout.activity_hello_tpad);
 
 		// Initialize the TPad to the correct driving frequency
-		setFreq(32900);
+		setFreq(33650);
 
 		// Link the first 'View' called basicView to the view with the id=view1
 		basicView = (View) findViewById(R.id.view1);
