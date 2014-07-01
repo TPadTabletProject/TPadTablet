@@ -10,4 +10,4 @@ Working Applications:
   * IOIOAccessibilityService: Haptic feedback as an android accessibility service
 
 Under Developement:
-<br>-TPad KeyPad: Haptic Keyboard for Android
+  * TPad KeyPad: Haptic Keyboard for Android
