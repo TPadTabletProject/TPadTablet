@@ -10,9 +10,22 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.view.MotionEvent;
 import android.view.View;
+import android.util.Log;
 
 public class HelloTPadActivity extends TPadNexusActivity {
 
+	/*
+	 * This is just a placeholder for the re-implementation of the
+	 * TPad Texture in order to allow it to be passed through in a bundle
+	 */
+//	SINUSOID, SQUARE, SAWTOOTH, TRIANGLE, RANDOM
+	public final int iSINUSOID = 1;
+	public final int iSQUARE = 2;
+	public final int iSAWTOOTH = 3;
+	public final int iTRIANGLE = 4;
+	public final int iRANDOM = 5;
+	
+	
 	// Define 'View' classes that will link to the .xml file
 	View basicView;
 	View timeView;
@@ -27,7 +40,7 @@ public class HelloTPadActivity extends TPadNexusActivity {
 		setContentView(R.layout.activity_hello_tpad);
 
 		// Initialize the TPad to the correct driving frequency
-		setFreq(33650);
+		//setFreq(10000);
 
 		// Link the first 'View' called basicView to the view with the id=view1
 		basicView = (View) findViewById(R.id.view1);
@@ -83,11 +96,14 @@ public class HelloTPadActivity extends TPadNexusActivity {
 
 				case MotionEvent.ACTION_DOWN:
 					// Turn on a time-based texture when the view is touched
-					sendTPadTexture(TPadTexture.SAWTOOTH, 35, 1.0f);
+					//sendTPadTexture(TPadTexture.SAWTOOTH, 35, 1.0f);
+					Log.i("HelloTPad", "Send Sawtooth Texture");
+					sendTPadTexture(iSAWTOOTH, 35, 1.0f);
 					break;
 
 				case MotionEvent.ACTION_UP:
 					// Turn off the TPad when the user lifts up (set to 0%)
+					Log.i("HelloTPad", "Send 0 to turn off TPad");
 					sendTPad(0f);
 					break;
 				}
