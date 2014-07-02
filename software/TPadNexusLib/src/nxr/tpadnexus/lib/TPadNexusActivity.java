@@ -1,7 +1,7 @@
 package nxr.tpadnexus.lib;
 
 import java.nio.FloatBuffer;
-
+/*
 import ioio.lib.api.DigitalOutput;
 import ioio.lib.api.IOIO;
 import ioio.lib.api.PwmOutput;
@@ -9,6 +9,8 @@ import ioio.lib.api.exception.ConnectionLostException;
 import ioio.lib.util.BaseIOIOLooper;
 import ioio.lib.util.IOIOLooper;
 import ioio.lib.util.android.IOIOActivity;
+*/
+import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -21,9 +23,8 @@ import android.os.Messenger;
 import android.os.RemoteException;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
-public abstract class TPadNexusActivity extends IOIOActivity {
+public abstract class TPadNexusActivity extends Activity {//IOIOActivity {
 	public final static int BUFFER_SIZE = 1000;
 	public final static float MAX_VOLTAGE = 154;
 	public final static float DEAD_VOLTAGE = 116;
@@ -37,15 +38,28 @@ public abstract class TPadNexusActivity extends IOIOActivity {
 	long timeoutTimer;
 	long loopTimer;
 	int timeoutMillis = 1000;
-	private Looper looper;
+	//private Looper looper;
 
 	private int TPadFreq = 10000;
 
-	/*
-	 * 
-	 * Keystone service connection
+	/**
+	 * Keystone Service FLAGS
 	 */
 	public final int GET_TPAD_FREQ = 1;
+	public final int VOLTAGE_TO_PWM = 2;
+	public final int SEND_TPAD_TEXTURE = 3;
+	public final int SEND_TPAD = 4;
+	public final int SEND_TPAD_BUFFER = 5;
+
+
+	//	SINUSOID, SQUARE, SAWTOOTH, TRIANGLE, RANDOM
+	public final int iSINUSOID = 1;
+	public final int iSQUARE = 2;
+	public final int iSAWTOOTH = 3;
+	public final int iTRIANGLE = 4;
+	public final int iRANDOM = 5;
+	
+
 	Messenger myService = null;
 	boolean isBound;
 	
@@ -56,9 +70,7 @@ public abstract class TPadNexusActivity extends IOIOActivity {
 			
 			switch(respCode) {
 				case 1:
-					int x = msg.getData().getInt("Freq");
-					Toast.makeText(getApplicationContext(), "My freq is: " + x, Toast.LENGTH_SHORT).show();
-					setFreq(x);
+					setFreq(msg.getData().getInt("Freq"));
 					break;
 			} 
 		}
@@ -66,11 +78,7 @@ public abstract class TPadNexusActivity extends IOIOActivity {
 	
 	
 	public void sendMessage() {
-		Toast.makeText(getApplicationContext(), "sendMessage1", Toast.LENGTH_SHORT).show();
-		Toast.makeText(getApplicationContext(), ":" + isBound, Toast.LENGTH_SHORT).show();
-
 		if (!isBound) return;
-		Toast.makeText(getApplicationContext(), "sendMessage", Toast.LENGTH_SHORT).show();
 		Message msg = Message.obtain(null, GET_TPAD_FREQ);
         msg.replyTo = new Messenger(new ResponseHandler());
 		Bundle bundle = new Bundle();
@@ -90,7 +98,7 @@ public abstract class TPadNexusActivity extends IOIOActivity {
 	 * IOIO loop classes
 	 */
 	
-	
+	/*
 	class Looper extends BaseIOIOLooper {
 		private PwmOutput pwmOutput_;
 		private DigitalOutput led_;
@@ -103,7 +111,6 @@ public abstract class TPadNexusActivity extends IOIOActivity {
 			freq = TPadFreq;
 			tpadValueBuffer.clear();
 			tpadTextureBuffer.clear();
-
 		}
 
 		@Override
@@ -131,13 +138,10 @@ public abstract class TPadNexusActivity extends IOIOActivity {
 							tpadValueBuffer.flip();
 						} else
 							tpadValueBuffer.rewind();
-
 					}
 				} else {
 					led_.write(true);
-
 				}
-
 			}
 
 			if (freq != TPadFreq) {
@@ -153,14 +157,13 @@ public abstract class TPadNexusActivity extends IOIOActivity {
 			// wait until the end of our refresh period. Ensures more precise timings
 			while ((loopTimer + 1) > (System.nanoTime() / 1000000))
 				;
-
 		}
 	}
-
+*/
 	public void setFreq(int i) {
 		TPadFreq = i;
 	}
-
+/*
 	public void sendTPad(float f) {
 		synchronized (tpadValueBuffer) {
 			textureOn = false;
@@ -170,7 +173,27 @@ public abstract class TPadNexusActivity extends IOIOActivity {
 		}
 
 	}
+	*/
+	public void sendTPad(float f) {
+		Log.i("Hello#TPad Nexus Activity", "send TPad: " + f);
+		if (!isBound) return;
+		Message msg = Message.obtain(null, SEND_TPAD);		
+        msg.replyTo = new Messenger(new ResponseHandler());
+		Bundle bundle = new Bundle();
+		bundle.putFloat("f", f);
+		msg.setData(bundle);
+		Log.i("Hello#TPad Nexus Activity", "Bundle ready, sending message");
 
+		try {
+			Log.i("Hello#TPad Nexus Activity", "Sending TPad Message (2)");
+			myService.send(msg);
+			Log.i("Hello#TPad Nexus Activity", "Message Return(2)");
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		} 
+	}
+
+	/*
 	public void sendTPadBuffer(float[] buffArray) {
 		synchronized (tpadValueBuffer) {
 			textureOn = false;
@@ -179,7 +202,23 @@ public abstract class TPadNexusActivity extends IOIOActivity {
 			tpadValueBuffer.flip();
 		}
 	}
+	*/
 
+	public void sendTPadBuffer(float[] buffArray) {
+		Log.i("send#TPad Buffer", "callinge event");
+		if (!isBound) return;
+		Message msg = Message.obtain(null, SEND_TPAD_BUFFER);		
+        msg.replyTo = new Messenger(new ResponseHandler());
+		Bundle bundle = new Bundle();
+		bundle.putFloatArray("buffArray", buffArray);
+		msg.setData(bundle);
+		try {
+			myService.send(msg);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+/*
 	public void sendTPadTexture(TPadTexture type, float freq, float amp) {
 
 		int periodSamps = (int) ((1 / freq) * TextureSampleRate);
@@ -254,109 +293,93 @@ public abstract class TPadNexusActivity extends IOIOActivity {
 		}
 
 	}
+*/
 
+	public void sendTPadTexture(int type, float freq, float amp) {
+		if (!isBound) return;
+		Message msg = Message.obtain(null, SEND_TPAD_TEXTURE);
+		
+        msg.replyTo = new Messenger(new ResponseHandler());
+		Bundle bundle = new Bundle();
+		bundle.putInt("type", type);
+		bundle.putFloat("freq", freq);
+		bundle.putFloat("amp", amp);
+		msg.setData(bundle);
+		try {
+			Log.i("TPad", "send message");
+			myService.send(msg);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 	public void sendTPadDualTexture(TPadTexture type1, float freq1, float amp1, TPadTexture type2, float freq2, float amp2) {
-
 		float minfreq = Math.min(freq1, freq2);
-
 		int periodSamps = (int) ((1 / minfreq) * TextureSampleRate);
 		float[] tempArray = new float[periodSamps];
-
 		float tp = 0;
-
 		switch (type1) {
-
 		case SINUSOID:
-
 			for (int i = 0; i < periodSamps; i++) {
-
 				tp = (float) ((1 + Math.sin(2 * Math.PI * freq1 * i / TextureSampleRate)) / 2f);
 				tempArray[i] = amp1 * tp;
-
 			}
-
 			break;
 		case SAWTOOTH:
 			for (int i = 0; i < periodSamps; i++) {
 				tempArray[i] = amp1 * (i / periodSamps);
-
 			}
 			break;
-
 		case SQUARE:
-
 			for (int i = 0; i < periodSamps; i++) {
-
 				tp = (float) ((1 + Math.sin(2 * Math.PI * freq1 * i / TextureSampleRate)) / 2f);
-
 				if (tp > (.5)) {
 					tempArray[i] = amp1;
-
 				} else
 					tempArray[i] = 0;
-
 			}
-
 			break;
 		default:
 			break;
-
 		}
-
 		switch (type2) {
-
 		case SINUSOID:
-
 			for (int i = 0; i < periodSamps; i++) {
-
 				tp = (float) ((1 + Math.sin(2 * Math.PI * freq2 * i / TextureSampleRate)) / 2f);
 				tempArray[i] *= amp2 * tp;
-
 			}
-
 			break;
 		case SAWTOOTH:
 			for (int i = 0; i < periodSamps; i++) {
 				tempArray[i] *= amp2 * (i / periodSamps);
-
 			}
 			break;
-
 		case SQUARE:
-
 			for (int i = 0; i < periodSamps; i++) {
-
 				tp = (float) ((1 + Math.sin(2 * Math.PI * freq2 * i / TextureSampleRate)) / 2f);
-
 				if (tp > (.5)) {
 					tempArray[i] *= amp2;
 
 				} else
 					tempArray[i] *= 0;
-
 			}
-
 			break;
 		default:
 			break;
-
 		}
-
 		synchronized (tpadTextureBuffer) {
-
 			tpadTextureBuffer.clear();
 			tpadTextureBuffer.limit(periodSamps);
-
 			tpadTextureBuffer.put(tempArray);
-
 			tpadTextureBuffer.flip();
 		}
-
 		synchronized (tpadValueBuffer) {
 			textureOn = true;
 		}
-
 	}
+
+
 
 	public void addTextureBuff() {
 		synchronized (tpadValueBuffer) {
@@ -366,6 +389,8 @@ public abstract class TPadNexusActivity extends IOIOActivity {
 		}
 	}
 
+	
+	
 	private float voltageToPwm(float voltage) {
 		float duty = 0;
 		// Linear approximations below found from calibration of a tpad amp
@@ -380,11 +405,29 @@ public abstract class TPadNexusActivity extends IOIOActivity {
 		Log.i("TPad Duty", String.valueOf(duty));
 		return duty;
 	}
+	
+	/*
+	private float voltageToPwm() {
+		if (!isBound) return;
+		Message msg = Message.obtain(null, VOLTAGE_TO_PWM);
+        msg.replyTo = new Messenger(new ResponseHandler());
+		Bundle bundle = new Bundle();
+		bundle.putString("MyString", "Message Received");
+		bundle.putInt("method", GET_TPAD_FREQ);
+
+		msg.setData(bundle);
+		
+		try {
+			myService.send(msg);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+	*/
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Toast.makeText(getApplicationContext(), "onCreate!", Toast.LENGTH_SHORT).show();
 		Intent intent = new Intent("nxr.tpad.KeystoneService");
 		bindService(intent, myConnection, Context.BIND_AUTO_CREATE);
 	}
@@ -404,7 +447,6 @@ public abstract class TPadNexusActivity extends IOIOActivity {
 	@Override
 	protected void onStart() {
 		super.onStart();
-		Toast.makeText(getApplicationContext(), "onStart!", Toast.LENGTH_SHORT).show();
 	}
 
 	/**
@@ -414,13 +456,13 @@ public abstract class TPadNexusActivity extends IOIOActivity {
 	protected void onStop() {
 		super.onStop();
 	}
-
+/*
 	@Override
 	protected IOIOLooper createIOIOLooper() {
 		looper = new Looper();
 		return looper;
 	}
-	
+	*/
 	/*
 	 * Functions to communicate with Keystone service
 	 * to get device specific info
@@ -430,7 +472,6 @@ public abstract class TPadNexusActivity extends IOIOActivity {
 		public void onServiceConnected(ComponentName className, IBinder service) {
 			myService = new Messenger(service);
 			isBound = true;
-			Toast.makeText(getApplicationContext(), "isBound True", Toast.LENGTH_SHORT).show();
 			sendMessage();
 		}
 		
