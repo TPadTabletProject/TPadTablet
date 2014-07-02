@@ -205,7 +205,7 @@ public abstract class TPadNexusActivity extends Activity {//IOIOActivity {
 	*/
 
 	public void sendTPadBuffer(float[] buffArray) {
-		Log.i("send#TPad Buffer", "callinge event");
+		Log.i("send#TPad Buffer", "calling event");
 		if (!isBound) return;
 		Message msg = Message.obtain(null, SEND_TPAD_BUFFER);		
         msg.replyTo = new Messenger(new ResponseHandler());
