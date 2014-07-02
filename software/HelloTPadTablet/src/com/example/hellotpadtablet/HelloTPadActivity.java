@@ -18,6 +18,14 @@ public class HelloTPadActivity extends TPadNexusActivity {
 	View timeView;
 	FrictionMapView fricView;
 	DepthMapView depthView;
+	
+
+	//	SINUSOID, SQUARE, SAWTOOTH, TRIANGLE, RANDOM
+	public final int iSINUSOID = 1;
+	public final int iSQUARE = 2;
+	public final int iSAWTOOTH = 3;
+	public final int iTRIANGLE = 4;
+	public final int iRANDOM = 5;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +91,7 @@ public class HelloTPadActivity extends TPadNexusActivity {
 
 				case MotionEvent.ACTION_DOWN:
 					// Turn on a time-based texture when the view is touched
-					sendTPadTexture(TPadTexture.SAWTOOTH, 35, 1.0f);
+					sendTPadTexture(iSAWTOOTH, 35, 1.0f);
 					break;
 
 				case MotionEvent.ACTION_UP:
