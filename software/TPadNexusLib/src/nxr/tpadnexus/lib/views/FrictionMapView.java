@@ -53,7 +53,6 @@ public class FrictionMapView extends View {
 		dataBitmap = null;
 		dataBitmap = bmp.copy(Bitmap.Config.ARGB_8888, true);
 		invalidate();
-
 	}
 
 	private void resetScaleFactor() {
