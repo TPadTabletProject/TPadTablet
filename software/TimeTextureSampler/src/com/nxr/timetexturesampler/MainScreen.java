@@ -4,9 +4,11 @@ package com.nxr.timetexturesampler;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GraphViewSeries;
 import com.jjoe64.graphview.LineGraphView;
+import com.jjoe64.graphview.GraphView.GraphViewData;
 
 import nxr.tpadnexus.lib.TPadNexusFragmentActivity;
 import nxr.tpadnexus.lib.TPadTexture;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -43,6 +45,8 @@ public class MainScreen extends TPadNexusFragmentActivity {
 		super.onCreate(savedInstanceState);
 		setFreq(34910);
 		setContentView(R.layout.activity_main_screen);
+		UpdateGraph();
+
 		text = (TextView) findViewById(R.id.textView1);
 		Spinner spinner = (Spinner) findViewById(R.id.wavetype);
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -302,7 +306,37 @@ public class MainScreen extends TPadNexusFragmentActivity {
 		switch(wave) {
 			case 0:
 				//SINUSOID
-				
+				/*
+		        int num = 150;
+		        GraphViewData[] data = new GraphViewData[num];
+		        double v=0;
+		        for (int i=0; i<num; i++) {
+		        	data[i] = new GraphViewData(i, Math.sin(v));
+		        	v += 0.5;
+		        }
+		        GraphViewSeries seriesSin = new GraphViewSeries(data);
+		        
+		        
+		        GraphView graphView = new LineGraphView(
+		              this // context
+		              , "GraphViewDemo" // heading
+		        );
+		        //graphView.setHorizontalLabels(new String[] {});
+		        //graphView.setVerticalLabels(new String[] {});
+		        graphView.getGraphViewStyle().setVerticalLabelsWidth(-50);
+		        graphView.getGraphViewStyle().setGridColor(Color.BLACK);
+
+
+		        graphView.addSeries(seriesSin); // data
+		        //graphView.addSeries(exampleSeries); // data
+
+		        */
+		        Toast.makeText(getApplicationContext(), ":" + R.id.area, Toast.LENGTH_SHORT).show();
+		        LinearLayout layout = (LinearLayout) findViewById(R.id.area);
+		        //layout.setBackgroundColor(Color.BLACK);
+		        Toast.makeText(getApplicationContext(), ":" + layout, Toast.LENGTH_SHORT).show();
+		        
+		        //layout.addView(graphView);
 				break;
 			case 1:
 				//SQUARE
