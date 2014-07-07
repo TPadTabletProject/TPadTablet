@@ -306,7 +306,7 @@ public class MainScreen extends TPadNexusFragmentActivity {
 		switch(wave) {
 			case 0:
 				//SINUSOID
-				/*
+				
 		        int num = 150;
 		        GraphViewData[] data = new GraphViewData[num];
 		        double v=0;
@@ -323,20 +323,20 @@ public class MainScreen extends TPadNexusFragmentActivity {
 		        );
 		        //graphView.setHorizontalLabels(new String[] {});
 		        //graphView.setVerticalLabels(new String[] {});
-		        graphView.getGraphViewStyle().setVerticalLabelsWidth(-50);
+		        //graphView.getGraphViewStyle().setVerticalLabelsWidth(-50);
 		        graphView.getGraphViewStyle().setGridColor(Color.BLACK);
 
 
 		        graphView.addSeries(seriesSin); // data
 		        //graphView.addSeries(exampleSeries); // data
 
-		        */
+		        
 		        Toast.makeText(getApplicationContext(), ":" + R.id.area, Toast.LENGTH_SHORT).show();
 		        LinearLayout layout = (LinearLayout) findViewById(R.id.area);
 		        //layout.setBackgroundColor(Color.BLACK);
 		        Toast.makeText(getApplicationContext(), ":" + layout, Toast.LENGTH_SHORT).show();
 		        
-		        //layout.addView(graphView);
+		        layout.addView(graphView);
 				break;
 			case 1:
 				//SQUARE
