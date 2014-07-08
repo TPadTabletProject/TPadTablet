@@ -21,6 +21,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
@@ -40,11 +41,17 @@ public class MainScreen extends TPadNexusFragmentActivity {
 	boolean testing = false;
 	TextView text;
 	View testingArea;
+	private GraphView graphView;
+	private GraphViewSeries textureVisual;
+	private long TextureSampleRate;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setFreq(34910);
 		setContentView(R.layout.activity_main_screen);
+		
+		TextureSampleRate = super.getTextureSampleRate();
 		UpdateGraph();
 
 		text = (TextView) findViewById(R.id.textView1);
@@ -59,6 +66,7 @@ public class MainScreen extends TPadNexusFragmentActivity {
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int pos, long arg3) {
 				wave = pos;
+				UpdateGraph();
 			}
 
 			@Override
@@ -110,6 +118,7 @@ public class MainScreen extends TPadNexusFragmentActivity {
 					Log.i("TAG", Float.toString(freq));
 					String s = String.format("%.2f", freq);
 					freqEdit.setText(s);
+					UpdateGraph();
 				}
 			}
 		});
@@ -135,6 +144,7 @@ public class MainScreen extends TPadNexusFragmentActivity {
 				double amplitude = seekBar.getProgress() / 100.0;
 				amp = (float) amplitude;
 				ampEdit.setText(Double.toString(amplitude));
+				UpdateGraph();
 			}
 		});
 		Spinner spinner2 = (Spinner) findViewById(R.id.wavetype2);
@@ -145,6 +155,7 @@ public class MainScreen extends TPadNexusFragmentActivity {
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int pos, long arg3) {
 				wave2 = pos;
+				UpdateGraph();
 			}
 
 			@Override
@@ -196,6 +207,7 @@ public class MainScreen extends TPadNexusFragmentActivity {
 					Log.i("TAG", Float.toString(freq2));
 					String s = String.format("%.2f", freq2);
 					freqEdit2.setText(s);
+					UpdateGraph();
 				}
 			}
 		});
@@ -221,9 +233,18 @@ public class MainScreen extends TPadNexusFragmentActivity {
 				double amplitude = seekBar.getProgress() / 100.0;
 				amp2 = (float) amplitude;
 				ampEdit2.setText(Double.toString(amplitude));
+				UpdateGraph();
 			}
 		});
 		final CheckBox check = (CheckBox) findViewById(R.id.checkBox1);
+		check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+		       @Override
+		       public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+		    	   UpdateGraph();
+		       }
+		   }
+		);   
 		
 		
 		testingArea = (View) findViewById(R.id.area);
@@ -302,49 +323,100 @@ public class MainScreen extends TPadNexusFragmentActivity {
 		return true;
 	}
 	
+	boolean set = true;
+	
 	public void UpdateGraph() {
+        int num = 200;
+        GraphViewData[] data;
+        data = new GraphViewData[num];
+        LinearLayout layout;
+		int periodSamps = (int) ((1 / freq) * TextureSampleRate);
+		float tp = 0;
+		final CheckBox check = (CheckBox) findViewById(R.id.checkBox1);
+
+		if(check.isChecked()) {
+			float minfreq = Math.min(freq, freq2);
+			periodSamps = (int) ((1 / minfreq) * TextureSampleRate);
+		}
+		
+	    graphView = new LineGraphView(this, "Demo Plot");
+
+		graphView.getGraphViewStyle().setVerticalLabelsWidth(-52);
+	    graphView.getGraphViewStyle().setNumHorizontalLabels(0);
+	    graphView.getGraphViewStyle().setGridColor(Color.BLACK);
+        
 		switch(wave) {
 			case 0:
 				//SINUSOID
-				
-		        int num = 150;
-		        GraphViewData[] data = new GraphViewData[num];
-		        double v=0;
-		        for (int i=0; i<num; i++) {
-		        	data[i] = new GraphViewData(i, Math.sin(v));
-		        	v += 0.5;
+		        data[0] = new GraphViewData(0, 1);
+		        for (int i=1; i<num; i++) {
+		        	data[i] = new GraphViewData(i, amp * (1 + Math.sin(2 * Math.PI * freq * (i - 1) / TextureSampleRate)) / 2f);
 		        }
-		        GraphViewSeries seriesSin = new GraphViewSeries(data);
-		        
-		        
-		        GraphView graphView = new LineGraphView(
-		              this // context
-		              , "GraphViewDemo" // heading
-		        );
-		        //graphView.setHorizontalLabels(new String[] {});
-		        //graphView.setVerticalLabels(new String[] {});
-		        //graphView.getGraphViewStyle().setVerticalLabelsWidth(-50);
-		        graphView.getGraphViewStyle().setGridColor(Color.BLACK);
-
-
-		        graphView.addSeries(seriesSin); // data
-		        //graphView.addSeries(exampleSeries); // data
-
-		        
-		        Toast.makeText(getApplicationContext(), ":" + R.id.area, Toast.LENGTH_SHORT).show();
-		        LinearLayout layout = (LinearLayout) findViewById(R.id.area);
-		        //layout.setBackgroundColor(Color.BLACK);
-		        Toast.makeText(getApplicationContext(), ":" + layout, Toast.LENGTH_SHORT).show();
-		        
-		        layout.addView(graphView);
 				break;
 			case 1:
 				//SQUARE
+		        data[0] = new GraphViewData(0, 1);
+		        for (int i=1; i<num; i++) {
+		        	
+					tp = (float) ((1 + Math.sin(2 * Math.PI * freq * i / TextureSampleRate)) / 2f);
+
+					if (tp > (.5)) {
+						data[i] = new GraphViewData(i, amp);
+					} else
+						data[i] = new GraphViewData(i, 0);
+		        }
 				break;
 			case 2:
 				//SAWTOOTH
+		        data[0] = new GraphViewData(0, 1);
+		        for (int i=1; i<num; i++) {
+		        	data[i] = new GraphViewData(i, amp * ((i-1) % periodSamps));
+		        }
 				break;
 		}
+		
+		if(check.isChecked()) {
+			switch(wave2) {
+			case 0:
+				//SINUSOID
+		        data[0] = new GraphViewData(0, 1);
+		        for (int i=1; i<num; i++) {
+		        	data[i] = new GraphViewData(i, data[i].getY() * amp2 * (1 + Math.sin(2 * Math.PI * freq2 * (i - 1) / TextureSampleRate)) / 2f);
+		        }
+				break;
+			case 1:
+				//SQUARE
+		        data[0] = new GraphViewData(0, 1);
+		        for (int i=1; i<num; i++) {
+		        	
+					tp = (float) ((1 + Math.sin(2 * Math.PI * freq2 * i / TextureSampleRate)) / 2f);
+
+					if (tp > (.5)) {
+						data[i] = new GraphViewData(i, data[i].getY() * amp2);
+					} else
+						data[i] = new GraphViewData(i, data[i].getY() * 0);
+		        }
+				break;
+			case 2:
+				//SAWTOOTH
+		        data[0] = new GraphViewData(0, 1);
+		        for (int i=1; i<num; i++) {
+		        	data[i] = new GraphViewData(i, data[i].getY() * amp2 * ((i-1) % periodSamps));
+		        }
+				break;
+			}
+		}
+        if(set) {
+        	textureVisual = new GraphViewSeries(data);
+    		graphView.addSeries(textureVisual); // data
+        } else
+        	textureVisual.resetData(data);
+        set = false;
+        
+        layout = (LinearLayout) findViewById(R.id.area);		        
+        layout.addView(graphView);
 	}
+	
+
 
 }
