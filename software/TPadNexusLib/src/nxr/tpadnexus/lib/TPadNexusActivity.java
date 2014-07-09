@@ -42,51 +42,6 @@ public abstract class TPadNexusActivity extends IOIOActivity {
 	private int TPadFreq = 10000;
 
 	/*
-	 * 
-	 * Keystone service connection
-	 */
-	public final int GET_TPAD_FREQ = 1;
-	Messenger myService = null;
-	boolean isBound;
-	
-	class ResponseHandler extends Handler {
-		@Override
-		public void handleMessage(Message msg) {
-			int respCode = msg.what;
-			
-			switch(respCode) {
-				case 1:
-					int x = msg.getData().getInt("Freq");
-					Toast.makeText(getApplicationContext(), "My freq is: " + x, Toast.LENGTH_SHORT).show();
-					setFreq(x);
-					break;
-			} 
-		}
-	}
-	
-	
-	public void sendMessage() {
-		Toast.makeText(getApplicationContext(), "sendMessage1", Toast.LENGTH_SHORT).show();
-		Toast.makeText(getApplicationContext(), ":" + isBound, Toast.LENGTH_SHORT).show();
-
-		if (!isBound) return;
-		Toast.makeText(getApplicationContext(), "sendMessage", Toast.LENGTH_SHORT).show();
-		Message msg = Message.obtain(null, GET_TPAD_FREQ);
-        msg.replyTo = new Messenger(new ResponseHandler());
-		Bundle bundle = new Bundle();
-		bundle.putString("MyString", "Message Received");
-		bundle.putInt("method", GET_TPAD_FREQ);
-
-		msg.setData(bundle);
-		
-		try {
-			myService.send(msg);
-		} catch (RemoteException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	/*
 	 * IOIO loop classes
 	 */
 	
@@ -384,9 +339,6 @@ public abstract class TPadNexusActivity extends IOIOActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Toast.makeText(getApplicationContext(), "onCreate!", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent("nxr.tpad.KeystoneService");
-		bindService(intent, myConnection, Context.BIND_AUTO_CREATE);
 	}
 
 	/**
@@ -394,7 +346,6 @@ public abstract class TPadNexusActivity extends IOIOActivity {
 	 */
 	@Override
 	protected void onDestroy() {
-		unbindService(myConnection);
 		super.onDestroy();
 	}
 
@@ -420,25 +371,6 @@ public abstract class TPadNexusActivity extends IOIOActivity {
 		looper = new Looper();
 		return looper;
 	}
-	
-	/*
-	 * Functions to communicate with Keystone service
-	 * to get device specific info
-	 */
-	
-	private ServiceConnection myConnection = new ServiceConnection() {
-		public void onServiceConnected(ComponentName className, IBinder service) {
-			myService = new Messenger(service);
-			isBound = true;
-			Toast.makeText(getApplicationContext(), "isBound True", Toast.LENGTH_SHORT).show();
-			sendMessage();
-		}
-		
-		public void onServiceDisconnected(ComponentName className) {
-			myService = null;
-			isBound = false;
-		}
-	};
 	
 	
 }

@@ -62,7 +62,7 @@ public class HapticCanvasActivity extends TPadNexusTabActivity {
 		// initialize screenview class object
 		myHapticView = (HapticCanvasView) findViewById(R.id.hapticCanvasView);
 		myHapticView.setContext(this);
-		setFreq(33500);
+		setFreq(32870);
 		// Start communication with TPad
 		
 		Bitmap initialBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.sample);

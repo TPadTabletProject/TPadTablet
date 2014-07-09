@@ -9,7 +9,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import nxr.tpadnexus.lib.TPadTexture;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -29,6 +28,7 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.VelocityTracker;
+import android.widget.Toast;
 
 public class HapticCanvasView extends SurfaceView implements Runnable {
 
@@ -205,8 +205,8 @@ public class HapticCanvasView extends SurfaceView implements Runnable {
 		eraser.setAntiAlias(true);
 		eraser.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
 
-		width = 800;
-		height = 1300;
+		width = 720;
+		height = 1280;
 
 		myDrawBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
 
@@ -266,7 +266,7 @@ public class HapticCanvasView extends SurfaceView implements Runnable {
 		myDataBitmap = bmp.copy(Bitmap.Config.ARGB_8888, true);
 		Matrix scaleMat = new Matrix();
 		mHapticScaleFactor = myDataBitmap.getWidth() / 800f;
-
+		mHapticScaleFactor = 1;
 		scaleMat.postScale(1 / mHapticScaleFactor, 1 / mHapticScaleFactor);
 
 		synchronized (myDrawCanvas) {
@@ -283,9 +283,9 @@ public class HapticCanvasView extends SurfaceView implements Runnable {
 		Matrix scaleMat = new Matrix();
 
 		mVisualScaleFactor = bmp.getWidth() / 800f;
-
+		mVisualScaleFactor = 1; // Makes the image sized for the phone screen
 		scaleMat.postScale(1 / mVisualScaleFactor, 1 / mVisualScaleFactor);
-
+		Toast.makeText(getContext(), ":" + bmp.getWidth() + " :" + mVisualScaleFactor, Toast.LENGTH_SHORT).show();
 		synchronized (myBackgroundCanvas) {
 			myBackgroundCanvas.drawBitmap(bmp, 0, 0, eraser);
 			myBackgroundCanvas.drawBitmap(bmp, scaleMat, null);
