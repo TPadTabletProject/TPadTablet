@@ -331,7 +331,7 @@ public class MainScreen extends TPadNexusFragmentActivity {
 	boolean set = true;
 	
 	public void UpdateGraph() {
-        int num = 200;
+        int num = 1000;
         GraphViewData[] data;
         data = new GraphViewData[num];
         LinearLayout layout;

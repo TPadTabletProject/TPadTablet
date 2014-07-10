@@ -69,8 +69,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/ampBar"
-        android:layout_below="@+id/ampBar"
-        android:layout_marginTop="60dp" />   
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/ampBar" />   
     
 
     <!-- <TextView
@@ -86,6 +87,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/wavetype"
+        android:layout_marginTop="60dp" 
         android:text="Frequency 2"/>
 
     <SeekBar
@@ -105,7 +107,7 @@
         android:layout_toRightOf="@+id/freqBar2"
         android:inputType="number"
         android:ems="10"
-        android:text="30" >
+        android:text="30">
     </EditText>
 
     <TextView
@@ -114,7 +116,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/freqBar2"
         android:layout_below="@+id/freqBar2"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="30dp"
         android:text="Amplitude2" />
 
     <SeekBar
@@ -142,9 +144,10 @@
         android:id="@+id/wavetype2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/ampBar2"
-        android:layout_below="@+id/ampBar2"
-        android:layout_marginTop="60dp" />
+        android:layout_alignLeft="@+id/checkbox1"
+        android:layout_marginLeft="340dp"
+        android:layout_alignBaseline="@+id/wavetype"
+        android:layout_below="@+id/ampBar" />
     
    <!--  <Button
         android:id="@+id/start"
@@ -160,7 +163,7 @@
         android:id="@+id/area"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@+id/wavetype2"
+        android:layout_below="@+id/ampBar2"
         android:layout_marginTop="10dp"
         android:background="@android:color/black"
         android:orientation="horizontal" />
@@ -169,8 +172,8 @@
         android:id="@+id/checkBox1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/freqText2"
-        android:layout_alignBottom="@+id/freqText2"
+        android:layout_alignBaseline="@+id/wavetype"
+        android:layout_alignLeft="@+id/wavetype"
         android:layout_marginLeft="140dp"
         android:text="Using 2nd wave" />
 
