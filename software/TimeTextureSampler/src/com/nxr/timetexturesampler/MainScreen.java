@@ -33,12 +33,15 @@ import android.widget.Spinner;
 public class MainScreen extends TPadNexusFragmentActivity {
 
 	private final int MINX = 1;
-	private final int MAXX = 500;	
+	private final int MAXX = 500;
+	
+	private final int MINX2 = 20;
+	private final int MAXX2 = 70;	
 	
 	EditText freqEdit, ampEdit, freqEdit2, ampEdit2;
 	float freq, amp, freq2, amp2;
 	int wave, wave2;
-	boolean testing = false;
+	boolean testing = true;
 	TextView text;
 	View testingArea;
 	private GraphView graphView;
@@ -53,7 +56,7 @@ public class MainScreen extends TPadNexusFragmentActivity {
 		
 		TextureSampleRate = super.getTextureSampleRate();
 		UpdateGraph();
-
+		UpdateGraph();
 		text = (TextView) findViewById(R.id.textView1);
 		Spinner spinner = (Spinner) findViewById(R.id.wavetype);
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -203,7 +206,7 @@ public class MainScreen extends TPadNexusFragmentActivity {
 				if (fromUser) {
 					freq2 = seekBar.getProgress();
 //					int y = (int) (((freq*freq)/500)*Math.log10(freq));
-					freq2 = (float) Math.exp(Math.log(MINX) + (freq2 - MINX) * (Math.log(MAXX) - Math.log(MINX))/(MAXX - MINX));
+					freq2 = (float) Math.exp(Math.log(MINX2) + (freq2 - MINX2) * (Math.log(MAXX2) - Math.log(MINX2))/(MAXX2 - MINX2));
 					Log.i("TAG", Float.toString(freq2));
 					String s = String.format("%.2f", freq2);
 					freqEdit2.setText(s);
@@ -286,6 +289,7 @@ public class MainScreen extends TPadNexusFragmentActivity {
 				return true;
 			}
 		});
+		/*
 		Button start = (Button) findViewById(R.id.start);
 		start.setOnClickListener(new OnClickListener() {
 
@@ -302,6 +306,7 @@ public class MainScreen extends TPadNexusFragmentActivity {
 				Toast.makeText(getApplicationContext(), "Testing: " + Boolean.toString(testing), Toast.LENGTH_SHORT).show();
 			}
 		});
+		*/
 	}
 
 	public TPadTexture convertWave(int wave) {
@@ -407,6 +412,13 @@ public class MainScreen extends TPadNexusFragmentActivity {
 			}
 		}
         if(set) {
+        	wave = 0;
+        	amp = 1;
+        	freq = 25;
+        	amp2 = 1;
+        	freq2 = 30;
+        	wave2 = 0;
+        	
         	textureVisual = new GraphViewSeries(data);
     		graphView.addSeries(textureVisual); // data
         } else
