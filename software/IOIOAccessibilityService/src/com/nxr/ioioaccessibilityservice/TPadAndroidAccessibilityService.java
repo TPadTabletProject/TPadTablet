@@ -126,6 +126,21 @@ public class TPadAndroidAccessibilityService extends TPadNexusService {
 				hasVibrated = true;
 				Toast.makeText(getApplicationContext(), content, Toast.LENGTH_SHORT).show();
 			}
+			else if (content.equals("Back")) {
+				sendTPadTexture(TPadTexture.SQUARE, 4.5f, 1f);
+				Toast.makeText(getApplicationContext(), content, Toast.LENGTH_SHORT).show();
+				hasVibrated = true;
+			}
+			else if (content.equals("Home")) {
+				sendTPadDualTexture(TPadTexture.SINUSOID, 25f, 1f, TPadTexture.SINUSOID, 1.05f, 1f);
+				Toast.makeText(getApplicationContext(), content, Toast.LENGTH_SHORT).show();
+				hasVibrated = true;
+			}
+			else if (content.equals("Recent apps")) {
+				sendTPadDualTexture(TPadTexture.SQUARE, 6f, 1f, TPadTexture.SQUARE, 1.5f, 1f);
+				Toast.makeText(getApplicationContext(), content, Toast.LENGTH_SHORT).show();
+				hasVibrated = true;
+			}
 			else if (content.equals("Gmail")) {
 				sendTPadTexture(TPadTexture.SINUSOID, 50f, 1f);
 				Toast.makeText(getApplicationContext(), content, Toast.LENGTH_SHORT).show();
@@ -177,21 +192,7 @@ public class TPadAndroidAccessibilityService extends TPadNexusService {
 				Toast.makeText(getApplicationContext(), content, Toast.LENGTH_SHORT).show();
 				hasVibrated = true;
 			}
-			else if (content.equals("Back")) {
-				sendTPadTexture(TPadTexture.SQUARE, 4.5f, 1f);
-				Toast.makeText(getApplicationContext(), content, Toast.LENGTH_SHORT).show();
-				hasVibrated = true;
-			}
-			else if (content.equals("Home")) {
-				sendTPadDualTexture(TPadTexture.SINUSOID, 25f, 1f, TPadTexture.SINUSOID, 1.05f, 1f);
-				Toast.makeText(getApplicationContext(), content, Toast.LENGTH_SHORT).show();
-				hasVibrated = true;
-			}
-			else if (content.equals("Recent Apps")) {
-				sendTPadDualTexture(TPadTexture.SQUARE, 6f, 1f, TPadTexture.SQUARE, 1.5f, 1f);
-				Toast.makeText(getApplicationContext(), content, Toast.LENGTH_SHORT).show();
-				hasVibrated = true;
-			}
+			
 		}
 	}
 
