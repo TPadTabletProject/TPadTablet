@@ -40,7 +40,7 @@ public abstract class TPadNexusService extends IOIOAccessibilityService {
 	long loopTimer;
 	int timeoutMillis = 1000;
 	
-	private int TPadFreq = 32900;
+	private int TPadFreq = 32870;
 	
 	private Looper looper;
 
