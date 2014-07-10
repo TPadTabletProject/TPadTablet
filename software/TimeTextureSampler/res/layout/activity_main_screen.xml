@@ -146,14 +146,14 @@
         android:layout_below="@+id/ampBar2"
         android:layout_marginTop="60dp" />
     
-    <Button
+   <!--  <Button
         android:id="@+id/start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/wavetype2"
         android:layout_marginLeft="60dp"
         android:layout_toRightOf="@+id/freqText"
-        android:text="Start" />
+        android:text="Start" /> -->
     
     <LinearLayout 
 
@@ -171,7 +171,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/freqText2"
         android:layout_alignBottom="@+id/freqText2"
-        android:layout_alignLeft="@+id/start"
+        android:layout_marginLeft="140dp"
         android:text="Using 2nd wave" />
 
 </RelativeLayout>
