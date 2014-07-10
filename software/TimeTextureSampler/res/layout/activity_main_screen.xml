@@ -70,7 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/ampBar"
         android:layout_marginLeft="35dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="40dp"
         android:layout_below="@+id/ampBar" />   
     
 
@@ -87,7 +87,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/wavetype"
-        android:layout_marginTop="60dp" 
+        android:layout_marginTop="40dp" 
         android:text="Frequency 2"/>
 
     <SeekBar
