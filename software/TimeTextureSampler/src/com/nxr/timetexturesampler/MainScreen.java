@@ -42,7 +42,7 @@ public class MainScreen extends TPadNexusFragmentActivity {
 	float freq, amp, freq2, amp2;
 	int wave, wave2;
 	boolean testing = true;
-	TextView text;
+	//TextView text;
 	View testingArea;
 	private GraphView graphView;
 	private GraphViewSeries textureVisual;
@@ -57,7 +57,7 @@ public class MainScreen extends TPadNexusFragmentActivity {
 		TextureSampleRate = super.getTextureSampleRate();
 		UpdateGraph();
 		UpdateGraph();
-		text = (TextView) findViewById(R.id.textView1);
+		//text = (TextView) findViewById(R.id.textView1);
 		Spinner spinner = (Spinner) findViewById(R.id.wavetype);
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
 				R.array.wave_types, android.R.layout.simple_spinner_item);
@@ -259,7 +259,7 @@ public class MainScreen extends TPadNexusFragmentActivity {
 					TPadTexture type = convertWave(wave);
 					switch(event.getAction()) {
 					case MotionEvent.ACTION_DOWN:
-						text.setText("On");
+						//text.setText("On");
 						if (check.isChecked()) {
 							TPadTexture type2 = convertWave(wave2);
 							sendTPadDualTexture(type, freq, amp, type2, freq2, amp2);
@@ -281,7 +281,7 @@ public class MainScreen extends TPadNexusFragmentActivity {
 //						sendTPad(1f);
 						break;
 					case MotionEvent.ACTION_UP:
-						text.setText("Off");
+						//text.setText("Off");
 						sendTPad(0);
 						break;
 					}
