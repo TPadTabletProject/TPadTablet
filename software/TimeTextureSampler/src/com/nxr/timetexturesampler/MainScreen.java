@@ -336,6 +336,10 @@ public class MainScreen extends TPadNexusFragmentActivity {
         data = new GraphViewData[num];
         LinearLayout layout;
 		int periodSamps = (int) ((1 / freq) * TextureSampleRate);
+		int periodSampsSaw1 = (int) ((1 / freq) * TextureSampleRate);
+		int periodSampsSaw2 = (int) ((1 / freq2) * TextureSampleRate);
+
+		
 		float tp = 0;
 		final CheckBox check = (CheckBox) findViewById(R.id.checkBox1);
 
@@ -375,7 +379,7 @@ public class MainScreen extends TPadNexusFragmentActivity {
 				//SAWTOOTH
 		        data[0] = new GraphViewData(0, 1);
 		        for (int i=1; i<num; i++) {
-		        	data[i] = new GraphViewData(i, amp * ((i-1) % periodSamps));
+		        	data[i] = new GraphViewData(i, amp * ((i-1) % periodSampsSaw1));
 		        }
 				break;
 		}
@@ -406,7 +410,7 @@ public class MainScreen extends TPadNexusFragmentActivity {
 				//SAWTOOTH
 		        data[0] = new GraphViewData(0, 1);
 		        for (int i=1; i<num; i++) {
-		        	data[i] = new GraphViewData(i, data[i].getY() * amp2 * ((i-1) % periodSamps));
+		        	data[i] = new GraphViewData(i, data[i].getY() * amp2 * ((i-1) % periodSampsSaw2));
 		        }
 				break;
 			}
