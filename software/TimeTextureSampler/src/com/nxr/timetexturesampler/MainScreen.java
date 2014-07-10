@@ -35,7 +35,7 @@ public class MainScreen extends TPadNexusFragmentActivity {
 	private final int MINX = 1;
 	private final int MAXX = 500;
 	
-	private final int MINX2 = 20;
+	private final float MINX2 = 0.25f;
 	private final int MAXX2 = 70;	
 	
 	EditText freqEdit, ampEdit, freqEdit2, ampEdit2;
