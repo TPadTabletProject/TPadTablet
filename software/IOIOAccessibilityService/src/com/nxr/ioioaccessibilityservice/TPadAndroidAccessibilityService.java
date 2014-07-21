@@ -14,13 +14,26 @@ public class TPadAndroidAccessibilityService extends TPadNexusService {
 
 	@Override
 	public void onAccessibilityEvent(AccessibilityEvent event) {
+//		final Toast toast = Toast.makeText(getApplicationContext(), ":" + event.getText(), Toast.LENGTH_SHORT);
+//		toast.show();
+//		
+//		 Handler handler = new Handler();
+//         handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                toast.cancel(); 
+//            }
+//         }, 1000);
+		//Log.i("Access", "Incoming Accessibility event: " + event.getEventType() + " " + event.getText());
 		int eventType = event.getEventType();
 		String eventTest = "";
+		Log.i("Access", "A Event: " + event.eventTypeToString(eventType) + " .. Info: " + event.getText());
 		switch(eventType) {
 			case AccessibilityEventCompat.TYPE_TOUCH_INTERACTION_END:
 				sendTPad(0f);
 				break;
 		case AccessibilityEventCompat.TYPE_VIEW_HOVER_ENTER:
+			Log.i("Access", "Type View Hover Event: "  + event.getContentDescription() + " " + event.getText());
 			sendTPad(0f);
 			hasVibrated = false;
 			TPadTexture waveType;
@@ -97,6 +110,7 @@ public class TPadAndroidAccessibilityService extends TPadNexusService {
 	 */
 	
 	private void hapticConverter(String content) {
+		
 		if (content.length() == 1) {
 			hasVibrated = true;
 			if (content.charAt(0) == 'f') {
@@ -124,72 +138,72 @@ public class TPadAndroidAccessibilityService extends TPadNexusService {
 			if (content.equals("Dropbox")) {
 				sendTPadTexture(TPadTexture.SQUARE, 150f,  1f);
 				hasVibrated = true;
-				Toast.makeText(getApplicationContext(), content, Toast.LENGTH_SHORT).show();
+				//Toast.makeText(getApplicationContext(), content, Toast.LENGTH_SHORT).show();
 			}
 			else if (content.equals("Back")) {
 				sendTPadTexture(TPadTexture.SQUARE, 4.5f, 1f);
-				Toast.makeText(getApplicationContext(), content, Toast.LENGTH_SHORT).show();
+				//Toast.makeText(getApplicationContext(), content, Toast.LENGTH_SHORT).show();
 				hasVibrated = true;
 			}
 			else if (content.equals("Home")) {
 				sendTPadDualTexture(TPadTexture.SINUSOID, 25f, 1f, TPadTexture.SINUSOID, 1.05f, 1f);
-				Toast.makeText(getApplicationContext(), content, Toast.LENGTH_SHORT).show();
+				//Toast.makeText(getApplicationContext(), content, Toast.LENGTH_SHORT).show();
 				hasVibrated = true;
 			}
 			else if (content.equals("Recent apps")) {
 				sendTPadDualTexture(TPadTexture.SQUARE, 6f, 1f, TPadTexture.SQUARE, 1.5f, 1f);
-				Toast.makeText(getApplicationContext(), content, Toast.LENGTH_SHORT).show();
+				//Toast.makeText(getApplicationContext(), content, Toast.LENGTH_SHORT).show();
 				hasVibrated = true;
 			}
 			else if (content.equals("Gmail")) {
 				sendTPadTexture(TPadTexture.SINUSOID, 50f, 1f);
-				Toast.makeText(getApplicationContext(), content, Toast.LENGTH_SHORT).show();
+				//Toast.makeText(getApplicationContext(), content, Toast.LENGTH_SHORT).show();
 				hasVibrated = true;
 			}
 			else if (content.equals("Workshop Demo")) {
 				sendTPadTexture(TPadTexture.SQUARE, 12f, 1f);
-				Toast.makeText(getApplicationContext(), content, Toast.LENGTH_SHORT).show();
+				//Toast.makeText(getApplicationContext(), content, Toast.LENGTH_SHORT).show();
 				hasVibrated = true;
 			}
 			else if (content.equals("Settings")) {
 				sendTPadTexture(TPadTexture.SAWTOOTH, 150f, 1f);
-				Toast.makeText(getApplicationContext(), content, Toast.LENGTH_SHORT).show();
+				//Toast.makeText(getApplicationContext(), content, Toast.LENGTH_SHORT).show();
 				hasVibrated = true;
 			}
 			else if (content.equals("Chrome")) {
 				sendTPadTexture(TPadTexture.SINUSOID, 100f, 1f);
-				Toast.makeText(getApplicationContext(), content, Toast.LENGTH_SHORT).show();
+				//Toast.makeText(getApplicationContext(), content, Toast.LENGTH_SHORT).show();
 				hasVibrated = true;
 			}
 			else if (content.equals("Button")) {
 				sendTPadTexture(TPadTexture.SINUSOID, 100f, 1f);
-				Toast.makeText(getApplicationContext(), content, Toast.LENGTH_SHORT).show();
+				//Toast.makeText(getApplicationContext(), content, Toast.LENGTH_SHORT).show();
 				hasVibrated = true; 
 			}
 			else if (content.startsWith("Home screen")) {
 				//				sendTPadTexture(TPadTexture.SQUARE, 20f,  1f);
 				Log.i("TPad", "Home");
 				hasVibrated = true;
-				Toast.makeText(getApplicationContext(), content, Toast.LENGTH_SHORT).show();
+				//Toast.makeText(getApplicationContext(), content, Toast.LENGTH_SHORT).show();
 			}
 			else if (content.split(" ").equals("Wi-Fi")) {
 				sendTPadTexture(TPadTexture.SINUSOID, 20f, .3f);
-				Toast.makeText(getApplicationContext(), content, Toast.LENGTH_SHORT).show();
+				//Toast.makeText(getApplicationContext(), content, Toast.LENGTH_SHORT).show();
 				hasVibrated = true;
 			}
 			else if (content.split(" ").equals("Wi-Fi")) {
 				sendTPadTexture(TPadTexture.SQUARE, 50f, .5f);
-				Toast.makeText(getApplicationContext(), content, Toast.LENGTH_SHORT).show();
+				//Toast.makeText(getApplicationContext(), content, Toast.LENGTH_SHORT).show();
 				hasVibrated = true;
 			}
 			else if (content.split(" ").equals("Wi-Fi")) {
 				sendTPadTexture(TPadTexture.SINUSOID, 80f, .7f);
-				Toast.makeText(getApplicationContext(), content, Toast.LENGTH_SHORT).show();
+				//Toast.makeText(getApplicationContext(), content, Toast.LENGTH_SHORT).show();
 				hasVibrated = true;
 			}
 			else if (content.split(" ").equals("Wi-Fi")) {
 				sendTPadTexture(TPadTexture.SQUARE, 110f, 1f);
-				Toast.makeText(getApplicationContext(), content, Toast.LENGTH_SHORT).show();
+				//Toast.makeText(getApplicationContext(), content, Toast.LENGTH_SHORT).show();
 				hasVibrated = true;
 			}
 			
@@ -199,15 +213,15 @@ public class TPadAndroidAccessibilityService extends TPadNexusService {
 	private void functionHaptics(AccessibilityNodeInfo info) {
 		if (info.isEditable()) {
 			sendTPadTexture(TPadTexture.SAWTOOTH, 100f, 1f);
-			Toast.makeText(getApplicationContext(), "Editable", Toast.LENGTH_SHORT).show();
+			//Toast.makeText(getApplicationContext(), "Editable", Toast.LENGTH_SHORT).show();
 		}
 		else if (info.isCheckable()) {
 			sendTPadTexture(TPadTexture.SINUSOID, 200f, 1f);
-			Toast.makeText(getApplicationContext(), "Checkable", Toast.LENGTH_SHORT).show();
+			//Toast.makeText(getApplicationContext(), "Checkable", Toast.LENGTH_SHORT).show();
 		}
 		else if (info.isClickable()) {
 			sendTPadTexture(TPadTexture.SQUARE, 200f, 1f);
-			Toast.makeText(getApplicationContext(), "Clickable", Toast.LENGTH_SHORT).show();
+			//Toast.makeText(getApplicationContext(), "Clickable", Toast.LENGTH_SHORT).show();
 		}
 
 	}
