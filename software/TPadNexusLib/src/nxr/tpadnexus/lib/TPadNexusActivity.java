@@ -355,7 +355,6 @@ public abstract class TPadNexusActivity extends IOIOActivity {
 	@Override
 	protected void onStart() {
 		super.onStart();
-		Toast.makeText(getApplicationContext(), "onStart!", Toast.LENGTH_SHORT).show();
 	}
 
 	/**
