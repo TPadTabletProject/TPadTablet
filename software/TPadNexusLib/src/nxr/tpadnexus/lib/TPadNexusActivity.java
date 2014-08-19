@@ -175,19 +175,16 @@ public abstract class TPadNexusActivity extends Activity {//IOIOActivity {
 	}
 	*/
 	public void sendTPad(float f) {
-		Log.i("Hello#TPad Nexus Activity", "send TPad: " + f);
+		Log.i("TPad", "(sendTPad) Step 3: " + isBound);
 		if (!isBound) return;
 		Message msg = Message.obtain(null, SEND_TPAD);		
         msg.replyTo = new Messenger(new ResponseHandler());
 		Bundle bundle = new Bundle();
 		bundle.putFloat("f", f);
 		msg.setData(bundle);
-		Log.i("Hello#TPad Nexus Activity", "Bundle ready, sending message");
 
 		try {
-			Log.i("Hello#TPad Nexus Activity", "Sending TPad Message (2)");
 			myService.send(msg);
-			Log.i("Hello#TPad Nexus Activity", "Message Return(2)");
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		} 
@@ -205,7 +202,7 @@ public abstract class TPadNexusActivity extends Activity {//IOIOActivity {
 	*/
 
 	public void sendTPadBuffer(float[] buffArray) {
-		Log.i("send#TPad Buffer", "calling event");
+		Log.i("TPad", "Step 3: " + isBound);
 		if (!isBound) return;
 		Message msg = Message.obtain(null, SEND_TPAD_BUFFER);		
         msg.replyTo = new Messenger(new ResponseHandler());
