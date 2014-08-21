@@ -13,3 +13,6 @@ by Northwestern NxR Lab
   * **TPadFrictionMap**: Uses pixels to create friction values for haptic surface
   * **TPadNexusLib**: Contains libraries used for other apps
   * **TimeTextureSampler**: App that allows you change amplitude and frequency of different wave forms for sampling haptic feedback.
+
+Dev Notes:
+	TexturePicApp should be fully merged with master branch at this point.
