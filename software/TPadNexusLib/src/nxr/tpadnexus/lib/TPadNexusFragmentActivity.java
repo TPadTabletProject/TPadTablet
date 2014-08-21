@@ -303,6 +303,10 @@ public abstract class TPadNexusFragmentActivity extends IOIOFragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 	}
+	
+	public long getTextureSampleRate() {
+		return TextureSampleRate;
+	}
 
 	/**
 	 * Subclasses should call this method from their own onDestroy() if overloaded. It takes care of connecting with the IOIO.

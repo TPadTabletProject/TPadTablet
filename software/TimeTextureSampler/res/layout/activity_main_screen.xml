@@ -20,7 +20,8 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/freqText"
         android:layout_below="@+id/freqText"
-        android:max="500" />
+        android:max="500"
+        android:progress="250" />
 
     <EditText
         android:id="@+id/freqEdit"
@@ -30,7 +31,7 @@
         android:layout_toRightOf="@+id/freqBar"
         android:ems="10"
         android:inputType="number"
-        android:text="0" >
+        android:text="25" >
     </EditText>
 
     <TextView
@@ -49,7 +50,8 @@
         android:layout_alignLeft="@+id/ampText"
         android:layout_alignRight="@+id/freqBar"
         android:layout_below="@+id/ampText"
-        android:max="100"/>
+        android:max="100"
+        android:progress="100"/>
 
     <EditText
         android:id="@+id/ampEdit"
@@ -60,30 +62,32 @@
         android:layout_alignRight="@+id/freqEdit"
         android:inputType="number"
         android:ems="10"
-        android:text="0" />
+        android:text="1.0" />
 
     <Spinner
         android:id="@+id/wavetype"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/ampBar"
-        android:layout_below="@+id/ampBar"
-        android:layout_marginTop="60dp" />   
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="40dp"
+        android:layout_below="@+id/ampBar" />   
     
 
-    <TextView
+    <!-- <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/start"
         android:layout_centerHorizontal="true"
-        android:text="Off" />
+        android:text="Off" /> -->
     
      <TextView
         android:id="@+id/freqText2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/wavetype"
+        android:layout_marginTop="40dp" 
         android:text="Frequency 2"/>
 
     <SeekBar
@@ -92,7 +96,8 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/freqText2"
         android:layout_below="@+id/freqText2"
-        android:max="500" />
+        android:max="70"
+        android:progress="35" />
 
     <EditText
         android:id="@+id/freqEdit2"
@@ -102,7 +107,7 @@
         android:layout_toRightOf="@+id/freqBar2"
         android:inputType="number"
         android:ems="10"
-        android:text="0" >
+        android:text="4.45">
     </EditText>
 
     <TextView
@@ -111,7 +116,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/freqBar2"
         android:layout_below="@+id/freqBar2"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="30dp"
         android:text="Amplitude2" />
 
     <SeekBar
@@ -121,7 +126,8 @@
         android:layout_alignLeft="@+id/ampText2"
         android:layout_alignRight="@+id/freqBar2"
         android:layout_below="@+id/ampText2"
-        android:max="100"/>
+        android:max="100"
+        android:progress="100"/>
 
     <EditText
         android:id="@+id/ampEdit2"
@@ -132,41 +138,43 @@
         android:layout_alignRight="@+id/freqEdit2"
         android:inputType="number"
         android:ems="10"
-        android:text="0" />
+        android:text="1.0" />
 
     <Spinner
         android:id="@+id/wavetype2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/ampBar2"
-        android:layout_below="@+id/ampBar2"
-        android:layout_marginTop="60dp" />
+        android:layout_alignLeft="@+id/checkbox1"
+        android:layout_marginLeft="340dp"
+        android:layout_alignBaseline="@+id/wavetype"
+        android:layout_below="@+id/ampBar" />
     
-    <Button
+   <!--  <Button
         android:id="@+id/start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/wavetype2"
         android:layout_marginLeft="60dp"
         android:layout_toRightOf="@+id/freqText"
-        android:text="Start" />
+        android:text="Start" /> -->
     
-    <View 
+    <LinearLayout 
 
         android:id="@+id/area"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@+id/wavetype2"
+        android:layout_below="@+id/ampBar2"
         android:layout_marginTop="10dp"
-        android:background="@android:color/black" />
+        android:background="@android:color/black"
+        android:orientation="horizontal" />
 
     <CheckBox
         android:id="@+id/checkBox1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/freqText2"
-        android:layout_alignBottom="@+id/freqText2"
-        android:layout_alignLeft="@+id/start"
+        android:layout_alignBaseline="@+id/wavetype"
+        android:layout_alignLeft="@+id/wavetype"
+        android:layout_marginLeft="140dp"
         android:text="Using 2nd wave" />
 
 </RelativeLayout>
