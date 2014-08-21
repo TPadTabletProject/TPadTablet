@@ -6,6 +6,21 @@ import android.util.Log;
 
 import java.nio.FloatBuffer;
 
+/**
+ * dynamicHaptic is a class that helps to manage spatial textures based
+ *  in off of pictures for many different applications. 
+ * 
+ * By sending touch information, this class can handle all of the magic
+ * of turning the touches in haptic feedback based off a picture. This
+ * class will calculate velocity, investigate upcoming pixels, and send the
+ * info to the TPad.
+ * 
+ * To initialize the class it is recommend to pass in a bitmap in the onCreate()
+ * function, or whenever you want to change the picture used to define the haptic
+ * texture. Then, call hapticFeedback in your touch listener with the registered
+ * MotionEvents.
+ * 
+ */
 public class dynamicHaptic {
 	private Bitmap dataBitmap;
 	private float scaleFactor;
@@ -18,11 +33,21 @@ public class dynamicHaptic {
 	private static final int PREDICT_HORIZON = (int) (1000 * (.100f)); // 100 samples
 	private static float[] predictedPixels = new float[PREDICT_HORIZON];
 
+	/**
+	 * setDataBitmap
+	 * 
+	 * Sets the initial Bitmap to draw data from
+	 */
 	public void setDataBitmap(Bitmap bmp) {
 		dataBitmap = null;
 		dataBitmap = bmp.copy(Bitmap.Config.ARGB_8888, true);
 	}
 
+	/**
+	 * resetScaleFactor 
+	 * 
+	 * scales the Bitmap
+	 */
 	private void resetScaleFactor(int viewWidth) {
 		Log.i("dynamicHaptic", "resetting scale factor");
 		scaleMat = null;
@@ -33,6 +58,11 @@ public class dynamicHaptic {
 		Log.i("dynamicHaptic", "ScaleFactor: " + scaleFactor);
 	}
 
+	/**
+	 * predictPixels()
+	 * 
+	 * Looks ahead of touches to see the upcoming pixels
+	 */
 	private void predictPixels() {
 		float friction;
 		int x = (int) px;
@@ -63,12 +93,25 @@ public class dynamicHaptic {
 		}
 	}
 
+	/**
+	 * pixelToFriction
+	 * 
+	 * converts the upcoming pixels to a friction value
+	 */
 	private float pixelToFriction(int pixel) {
 		float[] hsv = new float[3];
 		Color.colorToHSV(pixel, hsv);
 		return hsv[2];
 	}
 
+	/**
+	 * hapticFeedback
+	 * 
+	 * This is the function you want to call in a touch listener.
+	 * 
+	 * Pass through the MotionEvent that is registered and this function
+	 * will handle the conversion to TPad values.
+	 */
 	public boolean hapticFeedback(MotionEvent event) {
 		switch (event.getActionMasked()) {
 			case MotionEvent.ACTION_DOWN:
