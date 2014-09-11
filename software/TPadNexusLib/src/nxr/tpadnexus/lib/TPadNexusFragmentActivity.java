@@ -1,14 +1,16 @@
 package nxr.tpadnexus.lib;
 
-import java.nio.FloatBuffer;
-
 import ioio.lib.api.DigitalOutput;
 import ioio.lib.api.IOIO;
 import ioio.lib.api.PwmOutput;
 import ioio.lib.api.exception.ConnectionLostException;
 import ioio.lib.util.BaseIOIOLooper;
 import ioio.lib.util.IOIOLooper;
+
+import java.nio.FloatBuffer;
+
 import android.os.Bundle;
+import android.util.Log;
 
 public abstract class TPadNexusFragmentActivity extends IOIOFragmentActivity {
 	public final static int BUFFER_SIZE = 1000;
@@ -140,7 +142,7 @@ public abstract class TPadNexusFragmentActivity extends IOIOFragmentActivity {
 			case SAWTOOTH:
 				for (float i = 0; i < periodSamps; i++) {
 
-					tpadTextureBuffer.put(amp * (i / (float)periodSamps));
+					tpadTextureBuffer.put(amp * (i % (float)periodSamps));
 
 				}
 				break;
@@ -193,6 +195,12 @@ public abstract class TPadNexusFragmentActivity extends IOIOFragmentActivity {
 		float minfreq = Math.min(freq1, freq2);
 
 		int periodSamps = (int) ((1 / minfreq) * TextureSampleRate);
+	
+		if(periodSamps > 1000) {
+			periodSamps = 1000;
+			Log.e("TPad", "ERROR: periodSamps > 1000, readjusting");
+		}
+		
 		float[] tempArray = new float[periodSamps];
 
 		float tp = 0;
@@ -211,7 +219,7 @@ public abstract class TPadNexusFragmentActivity extends IOIOFragmentActivity {
 			break;
 		case SAWTOOTH:
 			for (int i = 0; i < periodSamps; i++) {
-				tempArray[i] = amp1 * (i / (float)periodSamps);
+				tempArray[i] = amp1 * (i % (float)periodSamps);
 
 			}
 			break;
@@ -250,7 +258,7 @@ public abstract class TPadNexusFragmentActivity extends IOIOFragmentActivity {
 			break;
 		case SAWTOOTH:
 			for (int i = 0; i < periodSamps; i++) {
-				tempArray[i] *= amp2 * (i / (float)periodSamps);
+				tempArray[i] *= amp2 * (i % (float)periodSamps);
 
 			}
 			break;
@@ -278,8 +286,9 @@ public abstract class TPadNexusFragmentActivity extends IOIOFragmentActivity {
 		synchronized (tpadTextureBuffer) {
 
 			tpadTextureBuffer.clear();
-			tpadTextureBuffer.limit(periodSamps);
 
+			tpadTextureBuffer.limit(periodSamps);
+			
 			tpadTextureBuffer.put(tempArray);
 
 			tpadTextureBuffer.flip();
