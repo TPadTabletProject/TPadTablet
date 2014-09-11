@@ -51,7 +51,7 @@ public class MainScreen extends TPadNexusFragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setFreq(34910);
+		setFreq(33300);
 		setContentView(R.layout.activity_main_screen);
 		
 		TextureSampleRate = super.getTextureSampleRate();
