@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:orientation="vertical"
+    android:focusableInTouchMode="true">
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Options" />
+    <Button
+        android:id="@+id/clean_button"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Clean" />
+    <LinearLayout
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal" >
+	    <Button
+	        android:id="@+id/show_own_touch"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:text="Show Self" />
+		<Button
+	        android:id="@+id/show_other_touch"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:text="Show Other" />
+		<Button
+	        android:id="@+id/time_decay"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:text="Time Decay OFF" />
+	</LinearLayout>
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Decay:" />
+    <SeekBar
+        android:id="@+id/decay_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:max="5"
+        android:minWidth="250dp" />
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Radius:" />
+    <SeekBar
+        android:id="@+id/radius_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:max="120"
+        android:minWidth="250dp" />>
+    <Button
+        android:id="@+id/options_hide_button"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Hide" />
+</LinearLayout>

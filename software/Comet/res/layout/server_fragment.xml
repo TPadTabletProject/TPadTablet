@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:orientation="vertical"
+    android:focusableInTouchMode="true">
+
+    <TextView
+        android:id="@+id/server_status"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Status" />
+    <Button
+        android:id="@+id/connect_server_button"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Connect as Server" />
+   	<LinearLayout
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal" >
+	    <EditText
+	        android:id="@+id/ip_textbox"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:hint="IP Address"
+	        android:layout_weight="1"
+	        android:inputType="phone"/>
+		    <Button
+	        android:id="@+id/reset_text"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="Clear" />
+	</LinearLayout>
+    <Button
+        android:id="@+id/connect_client_button"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Connect as Client" />
+    <Button
+        android:id="@+id/reset_button"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Reset Server" />
+    <Button
+        android:id="@+id/server_hide_button"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Hide" />
+</LinearLayout>
